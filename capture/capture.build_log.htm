@@ -17,7 +17,7 @@ Library Manager: ArmAr.exe V5.06 update 5 (build 528)
 Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
 CPU DLL:         SARMCM3.DLL V5.24.1
 Dialog DLL:      DCM.DLL V1.16.0.0
-Target DLL:      UL2CM3.DLL V1.160.3.0
+Target DLL:      lmidk-agdi.dll V???
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
@@ -28,17 +28,14 @@ Project File Date:  12/25/2017
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Target 1'
 assembling startup.s...
-compiling main.c...
 compiling timer_capture_init.c...
+compiling main.c...
+compiling systick_init.c...
+compiling FPUInit.c...
 linking...
-.\capture.axf: Error: L6218E: Undefined symbol SysTick_Init (referred from main.o).
-.\capture.axf: Error: L6218E: Undefined symbol SysTick_Wait (referred from main.o).
-Not enough information to list image symbols.
-Not enough information to list load addresses in the image map.
-Finished: 2 information, 0 warning and 2 error messages.
-".\capture.axf" - 2 Error(s), 0 Warning(s).
-Target not created.
-Build Time Elapsed:  00:00:04
+Program Size: Code=1512 RO-data=16 RW-data=0 ZI-data=1120  
+".\capture.axf" - 0 Error(s), 0 Warning(s).
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
