@@ -68,8 +68,3 @@ unsigned long USB_UART_InUDec(void);
 // Input: pointer to a NULL-terminated string to be transferred
 // Output: none
 void USB_UART_OutString(unsigned char buffer[]);
-
-///TIVA
-void TIVA_UART_Init(void);
-unsigned char TIVA_UART_InChar(void);
-void TIVA_UART_OutChar(unsigned char data);

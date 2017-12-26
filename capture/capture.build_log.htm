@@ -30,21 +30,23 @@ Rebuild target 'Target 1'
 assembling startup.s...
 compiling timer_capture_init.c...
 compiling main.c...
-main.c(26): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+main.c(15): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	anotherIntValue = (int)(diffValue * 1000.0);
-main.c(27): warning:  #223-D: function "sprintf" declared implicitly
+main.c(16): warning:  #223-D: function "sprintf" declared implicitly
   	sprintf(charArr, "\nP= %d.%d\n", intValue, anotherIntValue); //ignore warning
-main.c(80): warning:  #223-D: function "sprintf" declared implicitly
+main.c(25): warning:  #177-D: variable "testC"  was declared but never referenced
+  	unsigned char testC[100] ;
+main.c(62): warning:  #223-D: function "sprintf" declared implicitly
   	sprintf( period_time_charArr , "%d", period_time); //ignore warning
-main.c: 3 warnings, 0 errors
+main.c: 4 warnings, 0 errors
 compiling systick_init.c...
 compiling FPUInit.c...
 compiling UART.c...
 compiling PWM.c...
 linking...
-Program Size: Code=4792 RO-data=272 RW-data=48 ZI-data=1176  
-".\capture.axf" - 0 Error(s), 3 Warning(s).
-Build Time Elapsed:  00:00:02
+Program Size: Code=4520 RO-data=272 RW-data=48 ZI-data=1176  
+".\capture.axf" - 0 Error(s), 4 Warning(s).
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

@@ -11,7 +11,4 @@ void fpuInit(void);
 
 void PWM_init(void);
 void PWM_enable(void);
-void PWM_setSeconds(uint16_t secs);
-void test(void);
-void PWM_setCount(uint16_t counts);
-
+void PWM_setCountAndStart(uint16_t counts);

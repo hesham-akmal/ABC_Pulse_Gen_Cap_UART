@@ -6,17 +6,6 @@
 
 void EnableInterrupts(void);  // Enable interrupts
 
-void initPF(){
-	/////////FOR LED TEST////////////////
-	SYSCTL_RCGCGPIO_R |= 0x20;  // activate port F
-  GPIO_PORTF_DIR_R |= 0x0E;   // make PF1, 2 and 3 out
-  GPIO_PORTF_AFSEL_R &= ~0x0E;// disable alt funct on PF1, 2 and 3
-  GPIO_PORTF_DEN_R |= 0x0E;   // enable digital I/O on PF1,2 and 3
-  GPIO_PORTF_AMSEL_R = 0;     // disable analog functionality on PF  
-	//////////////////////////////////
-}
-
-
 void float_toCharArr(float f, unsigned char * charArr){
 	int intValue;
 	float diffValue;
@@ -27,18 +16,19 @@ void float_toCharArr(float f, unsigned char * charArr){
 	sprintf(charArr, "\nP= %d.%d\n", intValue, anotherIntValue); //ignore warning
 }
 
-
-
-void send(){
+void generate(){
 	volatile float frequency; // should probably stick to int
 	volatile float Period;
 	unsigned char PeriodString[100] ;
 	
+	volatile float testF;
+	unsigned char testC[100] ;
 	
 	//PART_1
 	//Get freq wanted from laptop
+	USB_UART_OutString("Please enter frequency in MHz: ");
+	
 	frequency = USB_UART_InUDec();
-	//frequency = 2;//test
 	Period = 1/frequency;
 	
 	//Print Period test/////////////////////////////////////////////
@@ -46,34 +36,24 @@ void send(){
 	USB_UART_OutString(PeriodString);
 	////////////////////////////////////////////////////////////////
 	
-	//PART_2 //Send square wave via TRANSMITTER_UART
+	//PART_2
+	//Send square wave
 	
 	/************///PWM implementation
-	// counts = ( sys_T * uart freq ) - 1
-	/*PWM_setCount( (1/80000000) * frequency ); 
-	while(1)
-	{
-	//PWM_waitTillFlag();
-	//TIVA_UART_OutChar(1);
-	}*/
+	// counts = ( sys_T * uart freq ) - 1 ??
+	//PWM_setCountAndStart( (1/80000000) * frequency );
+	PWM_setCountAndStart(0xffff); //////////////////////////////////////////CHANGE THIS
 	
-	
-	/************///Systick implementation
-	while(1)
-	{
-	//test led for now
-	GPIO_PORTF_DATA_R = GPIO_PORTF_DATA_R^0x0E; // toggle PF
-	//Wait 1ms for a number of Period*1000 as 1s=1000ms
-	SysTick_Wait_1ms(Period*1000);
-	}
+	//TEST PRINT COUNTS
+	//testF = (1/80000000) * frequency;
+	//float_toCharArr(testF, testC);
+	//USB_UART_OutString(testC);
+	/////////////////////////////////
 }
  
 void receive(){
-	
 	//PART_3
-	//recieve square wave from RECEIVER_UART
-	
-	//This part needs work
+	//recieve square wave
 	int period_time;
 	unsigned char period_time_charArr[100];
 	period_time = Timer0A_periodCapture();
@@ -83,28 +63,29 @@ void receive(){
 	
 	//PART_4
 	//send freq number to laptop
+	USB_UART_OutString("Time difference = ");
 	USB_UART_OutString(period_time_charArr);
-	
+	USB_UART_OutString("\n");
 }
 		
 int main(void){ 
 	
-	Timer0Capture_init(); //initalizes timer0 as edge-time capture mode
-	
 	TExaS_Init();             // initialize grader, set system clock to 80 MHz
-  USB_UART_Init();              // initialize USB UART
-	TIVA_UART_Init();              // initialize TIVA UART
-  EnableInterrupts();       // needed for TExaS (very important)
+  USB_UART_Init();          // initialize USB UART
+  EnableInterrupts();       // needed for TExaS
 	
 	fpuInit();						//initalizes floating point
 	SysTick_Init();				//initalizes systick
-	initPF();      				//initalizes port F for LED testing
-	PWM_init();						//initalizes timer1 as PWM  
+	PWM_init();						//initalizes timer1 as PWM
+	Timer0Capture_init(); //initalizes timer0 as edge-time capture mode
 	
-	//send();
+	generate();
+	
+	while(1)
+	{
 	receive(); 
-
-	return 0;
+	SysTick_Wait_1ms(1000);
+	}
 }
 
 
