@@ -30,23 +30,26 @@ Rebuild target 'Target 1'
 assembling startup.s...
 compiling timer_capture_init.c...
 compiling main.c...
-main.c(15): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	anotherIntValue = (int)(diffValue * 1000.0);
-main.c(16): warning:  #223-D: function "sprintf" declared implicitly
-  	sprintf(charArr, "\nP= %d.%d\n", intValue, anotherIntValue); //ignore warning
-main.c(25): warning:  #177-D: variable "testC"  was declared but never referenced
-  	unsigned char testC[100] ;
-main.c(62): warning:  #223-D: function "sprintf" declared implicitly
-  	sprintf( period_time_charArr , "%d", period_time); //ignore warning
-main.c: 4 warnings, 0 errors
 compiling systick_init.c...
 compiling FPUInit.c...
 compiling UART.c...
+UART.c(40): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	anotherIntValue = (int)(diffValue * 1000.0);
+UART.c(41): warning:  #223-D: function "sprintf" declared implicitly
+  	sprintf(charArr, "%d.%d", intValue, anotherIntValue); //ignore warning
+UART.c(97): warning:  #223-D: function "sprintf" declared implicitly
+  	sprintf(charArr, "%d", num);
+UART.c: 3 warnings, 0 errors
 compiling PWM.c...
+PWM.c(27): warning:  #177-D: variable "lastEdge"  was declared but never referenced
+   int lastEdge, thisEdge;  
+PWM.c(27): warning:  #177-D: variable "thisEdge"  was declared but never referenced
+   int lastEdge, thisEdge;  
+PWM.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=4520 RO-data=272 RW-data=48 ZI-data=1176  
-".\capture.axf" - 0 Error(s), 4 Warning(s).
-Build Time Elapsed:  00:00:01
+Program Size: Code=4708 RO-data=272 RW-data=48 ZI-data=1176  
+".\capture.axf" - 0 Error(s), 5 Warning(s).
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

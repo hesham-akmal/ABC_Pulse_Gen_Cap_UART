@@ -30,6 +30,17 @@
 #include "UART.h"
 #include "ABC.h"
 
+
+void float_toCharArr(float f, unsigned char * charArr){
+	int intValue;
+	float diffValue;
+	int anotherIntValue;
+	intValue = (int)f;
+	diffValue = f - (float)intValue;
+	anotherIntValue = (int)(diffValue * 1000.0);
+	sprintf(charArr, "%d.%d", intValue, anotherIntValue); //ignore warning
+}
+
 //------------UART_Init------------
 // Initialize the UART for 115200 baud rate (assuming 80 MHz UART clock),
 // 8 bit word length, no parity bits, one stop bit, FIFOs enabled
@@ -74,6 +85,20 @@ void USB_UART_OutString(unsigned char buffer[]){
 	for(i = 0; buffer[i] != '\0'; i++)
 			USB_UART_OutChar(buffer[i]);
 }
+
+void USB_UART_OutFloat(uint16_t num){
+	unsigned char charArr[100] ;
+	float_toCharArr(num , charArr);
+	USB_UART_OutString(charArr);
+}
+
+void USB_UART_OutInt(uint16_t num){
+	unsigned char charArr[100] ;
+	sprintf(charArr, "%d", num);
+	USB_UART_OutString(charArr);
+}
+
+
 
 //------------UART_InUDec------------
 // InUDec accepts ASCII input in unsigned decimal format

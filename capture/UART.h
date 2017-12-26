@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 // UART.h
 // Runs on TM4C123 or LM4F120
 // Lab 11 involves switching this from UART1 to UART0.
@@ -68,3 +70,5 @@ unsigned long USB_UART_InUDec(void);
 // Input: pointer to a NULL-terminated string to be transferred
 // Output: none
 void USB_UART_OutString(unsigned char buffer[]);
+void USB_UART_OutFloat(uint16_t num);
+void USB_UART_OutInt(uint16_t num);
