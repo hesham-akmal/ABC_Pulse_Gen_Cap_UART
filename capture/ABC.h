@@ -8,3 +8,10 @@ void Timer0Capture_init(void);
 int Timer0A_periodCapture(void);
 
 void fpuInit(void);
+
+void PWM_init(void);
+void PWM_enable(void);
+void PWM_setSeconds(uint16_t secs);
+void test(void);
+void PWM_setCount(uint16_t counts);
+

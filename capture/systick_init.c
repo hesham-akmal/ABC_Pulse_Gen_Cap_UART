@@ -16,6 +16,6 @@ void SysTick_Wait(uint32_t delay){
 void SysTick_Wait_1ms(uint32_t delay){
   uint32_t i;
   for(i=0; i<delay; i++){
-    SysTick_Wait(16000);  // wait 1ms
+    SysTick_Wait(80000);  // wait 1ms
   }
 }
